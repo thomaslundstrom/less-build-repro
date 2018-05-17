@@ -6,9 +6,13 @@ Command line run: `npx @angular/cli new less-build-repro --skip-tests=true --sty
 
 ## Reproducing the error
 
-Start the build: `npm start`
-Open a browser and see that the body background color is yellow.
-Open `src/app/anotherfile.less` (which is `@import`'ed from the root `style.less`) and change the background-color from `yellow` to `pink`. Notice that the background color in your browser still is yellow. Also notice that the build says `5 unchanged chunks`, and that the hash is the same as on initial compile:
+* Clone this repo
+* Install deps: `npm install`
+* Start the build: `npm start`
+* Open a browser and note that the body background color is yellow.
+* Open `src/app/anotherfile.less` (which is `@import`'ed from the root `style.less`) and change the background-color from `yellow` to `pink`
+* Note that the background color in your browser **still is yellow**, not pink. Also notice that the build says `5 unchanged chunks`, and that the hash is the same as on initial compile:
+
 ```
 $ npm start
 
