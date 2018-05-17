@@ -2,26 +2,37 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
 
-## Development server
+Command line run: `npx @angular/cli new less-build-repro --skip-tests=true --style=less`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Reproducing the error
 
-## Code scaffolding
+Start the build: `npm start`
+Open a browser and see that the body background color is yellow.
+Open `src/app/anotherfile.less` (which is `@import`'ed from the root `style.less`) and change the background-color from `yellow` to `pink`. Notice that the background color in your browser still is yellow. Also notice that the build says `5 unchanged chunks`, and that the hash is the same as on initial compile:
+```
+$ npm start
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> less-build-repro@0.0.0 start C:\src\tmp\less-build-repro
+> ng serve
 
-## Build
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Date: 2018-05-17T08:15:30.913Z
+Hash: 5d82d59500884f1bc5ad
+Time: 13164ms
+chunk {main} main.js, main.js.map (main) 10.7 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 227 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 5.22 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 16 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 3.37 MB [initial] [rendered]
+i ｢wdm｣: Compiled successfully.
+i ｢wdm｣: Compiling...
 
-## Running unit tests
+Date: 2018-05-17T08:16:11.686Z - Hash: 5d82d59500884f1bc5ad - Time: 313ms
+5 unchanged chunks
+i ｢wdm｣: Compiled successfully.
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Expected behaviour
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The background color should be pink, and the hash after recompile should be changed.
